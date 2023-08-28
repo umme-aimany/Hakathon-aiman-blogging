@@ -1,75 +1,77 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-auth.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-analytics.js";
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyDxLfphXH363O2mD2Exo6NL9lsJezv1mx0",
-  authDomain: "blogging-app-hakathon.firebaseapp.com",
-  databaseURL: "https://blogging-app-hakathon-default-rtdb.firebaseio.com",
-  projectId: "blogging-app-hakathon",
-  storageBucket: "blogging-app-hakathon.appspot.com",
-  messagingSenderId: "410730877490",
-  appId: "1:410730877490:web:792bc1cfb06dc23d5d222b",
-  measurementId: "G-LV5L0H156D"
-};
+import { auth } from "../firebase/config.mjs"
+import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.3.0/firebase-auth.js"
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-const auth = getAuth();
+const form = document.querySelector(".login-form-container");
 
-var btn = document.getElementById("loginBtn")
-btn.addEventListener("click", () => {
-  var email = document.getElementById("email").value
-  var password = document.getElementById("pass").value
-  signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      const user = userCredential.user;
-      Swal.fire({
-        text: `User Signed Up !`,
-        icon: 'success',
-        confirmButtonText: 'OK'
-      }).then(() => {
-        window.location.href = '../dashboard/dashboard.html'
-      });
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log(errorCode, errorMessage);
-      if (errorMessage === "Firebase: Error (auth/invalid-email).") {
-        Swal.fire({
-          text: `Invalid Email Address`,
-          icon: 'error',
-          confirmButtonText: 'OK'
-        });
-      }
-      else if (errorMessage === "Firebase: Error (auth/user-not-found).") {
-        Swal.fire({
-          text: `This email Is Not Signed Up`,
-          icon: 'error',
-          confirmButtonText: 'OK'
-        });
-      }
-      else if (errorMessage === "Firebase: Error (auth/missing-password).") {
-        Swal.fire({
-          text: `Enter Password First`,
-          icon: 'error',
-          confirmButtonText: 'OK'
-        });
-      }
-      else if (errorMessage === "Firebase: Error (auth/wrong-password).") {
-        Swal.fire({
-          text: `Wrong Password Entered`,
-          icon: 'error',
-          confirmButtonText: 'OK'
-        });
-      }
+async function login(e) {
+    e.preventDefault()
+    const email = document.querySelector("#email")
+    const password = document.querySelector("#password")
+    const data = await signInWithEmailAndPassword(auth, email.value,
+        password.value);
+    if (data) {
+        window.location.href = '/pages/login/dashbord.html';
+    } else {
+        console.log(data);
+    }
+}
+
+form.addEventListener('submit', login)
+
+
+
+if (successfulLogin) {
+    // Redirect the user to the dashboard page
+    window.location.href = '/pages/login/dashbord.html'; // Update the path accordingly
+} else {
+    // Show an error message or perform other actions for unsuccessful login
+    Swal.fire({
+        icon: 'error',
+        title: 'Login Failed',
+        text: 'Invalid email or password. Please try again.',
     });
-})
+}
 
-onAuthStateChanged(auth, async (user) => {
-  if (user) {
-      location.replace("../dashboard/dashboard.html")
-  }
-})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// function loginUser() {
+//     const email = document.getElementById('email').value;
+//     const password = document.getElementById('password').value;
+
+//     // Perform your login validation here (e.g., check against a database)
+
+//     // For the sake of this example, let's assume a successful login
+//     const successfulLogin = true;
+
+//     if (successfulLogin) {
+//         // Redirect the user to the dashboard page
+//         window.location.href = './dashboard.html'; // Update the path accordingly
+//     } else {
+//         // Show an error message or perform other actions for unsuccessful login
+//         Swal.fire({
+//             icon: 'error',
+//             title: 'Login Failed',
+//             text: 'Invalid email or password. Please try again.',
+//         });
+//     }
+// }
+
+// // Add an event listener to the login button
+// const loginButton = document.querySelector('.login-form-container button');
+// loginButton.addEventListener('click', (event) => {
+//     event.preventDefault(); // Prevent form submission
+//     loginUser(); // Call the login function
+// });
