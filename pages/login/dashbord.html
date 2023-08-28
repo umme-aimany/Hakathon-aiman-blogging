@@ -152,6 +152,63 @@
     <script type="module" src="../../js/index.js"></script>
     <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js'></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="../../js/index.js"></script>
+
+
+
+    <script>
+        // Sample data for blogs (you can replace this with actual data)
+const blogs = [
+    { title: "Blog 1", description: "This is the first blog." },
+    { title: "Blog 2", description: "This is the second blog." },
+    { title: "Blog 3", description: "This is the third blog." }
+];
+
+// Function to display blogs
+function displayBlogs() {
+    const container = document.getElementById('container');
+    container.innerHTML = ''; // Clear existing content
+
+    blogs.forEach(blog => {
+        const blogDiv = document.createElement('div');
+        blogDiv.className = 'azaanDash';
+        blogDiv.innerHTML = `
+            <h2>${blog.title}</h2>
+            <p>${blog.description}</p>
+        `;
+        container.appendChild(blogDiv);
+    });
+}
+
+// Function to publish a new blog post
+function publishBlog() {
+    const title = document.getElementById('title').value;
+    const description = document.getElementById('description').value;
+
+    // Add the new blog to the blogs array
+    blogs.push({ title, description });
+
+    // Display the updated list of blogs
+    displayBlogs();
+
+    // Clear input fields
+    document.getElementById('title').value = '';
+    document.getElementById('description').value = '';
+}
+
+// Add an event listener to the Publish button
+const publishButton = document.getElementById('publishButton');
+if (publishButton) {
+    publishButton.addEventListener('click', publishBlog);
+}
+
+// Call the displayBlogs function when the page loads
+window.onload = displayBlogs;
+
+        </script>
+
+
+
 </body>
 
 </html>
