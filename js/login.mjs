@@ -20,17 +20,17 @@ form.addEventListener('submit', login)
 
 
 
-if (successfulLogin) {
-    // Redirect the user to the dashboard page
-    window.location.href = '/pages/login/dashbord.html'; // Update the path accordingly
-} else {
-    // Show an error message or perform other actions for unsuccessful login
-    Swal.fire({
-        icon: 'error',
-        title: 'Login Failed',
-        text: 'Invalid email or password. Please try again.',
-    });
-}
+// if (successfulLogin) {
+//     // Redirect the user to the dashboard page
+//     window.location.href = '/pages/login/dashbord.html'; // Update the path accordingly
+// } else {
+//     // Show an error message or perform other actions for unsuccessful login
+//     Swal.fire({
+//         icon: 'error',
+//         title: 'Login Failed',
+//         text: 'Invalid email or password. Please try again.',
+//     });
+// }
 
 
 
