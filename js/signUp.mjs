@@ -38,4 +38,44 @@ async function register(e) {
     }
 }
 
+
+// Function to validate the password
+function isValidPassword(password) {
+    // Password must be at least 8 characters and include uppercase and lowercase letters
+    const regex = /^(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+    return regex.test(password);
+}
+
+// Get the password input element
+const passwordInput = document.getElementById('password');
+const repeatPasswordInput = document.getElementById('rpassword');
+
+// Add an input event listener to the password input for real-time validation
+passwordInput.addEventListener('input', function () {
+    const password = passwordInput.value;
+    const isValid = isValidPassword(password);
+
+    if (!isValid) {
+        passwordInput.setCustomValidity('Password must be at least 8 characters and include uppercase and lowercase letters.');
+    } else {
+        passwordInput.setCustomValidity('');
+    }
+});
+
+// Add an input event listener to the repeat password input for matching validation
+repeatPasswordInput.addEventListener('input', function () {
+    const password = passwordInput.value;
+    const repeatPassword = repeatPasswordInput.value;
+
+    if (password !== repeatPassword) {
+        repeatPasswordInput.setCustomValidity('Passwords do not match.');
+    } else {
+        repeatPasswordInput.setCustomValidity('');
+    }
+});
+
+
+
+
+
 form.addEventListener('submit', register)
