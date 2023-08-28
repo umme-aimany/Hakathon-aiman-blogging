@@ -158,10 +158,11 @@
 
     <script>
         // Sample data for blogs (you can replace this with actual data)
+// Sample data for blogs (you can replace this with actual data)
 const blogs = [
     { title: "Blog 1", description: "This is the first blog." },
-    { title: "Blog 2", description: "This is the second blog." },
-    { title: "Blog 3", description: "This is the third blog." }
+    // { title: "Blog 2", description: "This is the second blog." },
+    // { title: "Blog 3", description: "This is the third blog." }
 ];
 
 // Function to display blogs
@@ -182,8 +183,12 @@ function displayBlogs() {
 
 // Function to publish a new blog post
 function publishBlog() {
-    const title = document.getElementById('title').value;
-    const description = document.getElementById('description').value;
+    const title = "Umme Aiman"; // Set the title to "Elon Musk"
+    const currentDate = moment().format("MMMM D, YYYY"); // Get today's date in the specified format
+    const relatedText = "";
+
+    // Additional content for the description
+    const description = `${currentDate}\n${relatedText}\n\n${document.getElementById('description').value}`;
 
     // Add the new blog to the blogs array
     blogs.push({ title, description });
@@ -197,7 +202,7 @@ function publishBlog() {
 }
 
 // Add an event listener to the Publish button
-const publishButton = document.getElementById('publishButton');
+const publishButton = document.getElementById('publish');
 if (publishButton) {
     publishButton.addEventListener('click', publishBlog);
 }
